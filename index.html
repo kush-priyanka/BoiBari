@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>BoiBari</title>
+
+<meta name="theme-color" content="#0C234B" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="BoiBari" />
+<link rel="apple-touch-icon" href="data:image/png;base64,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" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<script src="https://cdn.jsdelivr.net/npm/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+
+<style>
+  :root{
+    --az-blue:#0C234B; --azurite:#1E5288; --oasis:#378DBD; --sky:#81D3EB;
+    --red:#AB0520; --bloom:#EF4056; --river:#007D84; --leaf:#70B865;
+    --warm:#F4EDE5; --silver:#9EABAE; --ash:#403635;
+    --paper:#FBFAF7; --card:#FFFFFF; --line:#E6E2DA; --ink:#1A2533; --muted:#5B6470;
+    --radius:16px; --radius-sm:11px;
+    --shadow-1:0 1px 2px rgba(12,35,75,.06);
+    --shadow-2:0 2px 6px rgba(12,35,75,.06), 0 10px 26px rgba(12,35,75,.08);
+    --safe-b: env(safe-area-inset-bottom, 0px);
+    --nav-h: 64px;
+  }
+  *{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  html,body{ margin:0; }
+  body{ background:var(--paper); color:var(--ink); font-family:"Inter",system-ui,-apple-system,Segoe UI,Roboto,sans-serif; font-size:16px; line-height:1.5; -webkit-font-smoothing:antialiased; overscroll-behavior-y:none; }
+  ::selection{ background:var(--sky); color:var(--az-blue); }
+  .wrap{ max-width:920px; margin:0 auto; padding:0 16px; }
+  main{ padding-bottom: calc(var(--nav-h) + var(--safe-b) + 24px); }
+
+  header.masthead{ background: radial-gradient(120% 160% at 100% 0%, rgba(55,141,189,.5) 0%, rgba(12,35,75,0) 55%), linear-gradient(180deg,#0d2856,var(--az-blue)); color:#fff; border-bottom:3px solid var(--red); padding-top: env(safe-area-inset-top, 0px); position:sticky; top:0; z-index:30; }
+  .masthead .wrap{ padding-top:14px; padding-bottom:14px; display:flex; align-items:center; gap:12px; }
+  .glyph{ width:32px; height:32px; flex:0 0 auto; }
+  .wordmark{ font-family:"Fraunces",Georgia,serif; font-weight:600; font-size:24px; line-height:1; color:#fff; }
+  .wordmark .z{ color:var(--sky); }
+  .hstats{ margin-left:auto; display:flex; gap:8px; }
+  .hstat{ background:rgba(255,255,255,.10); border:1px solid rgba(255,255,255,.16); border-radius:9px; padding:5px 10px; text-align:center; min-width:52px; }
+  .hstat b{ font-family:"Fraunces",serif; font-size:17px; font-weight:600; display:block; line-height:1; }
+  .hstat span{ font-size:9.5px; text-transform:uppercase; letter-spacing:.07em; color:#bcd2e8; }
+
+  .banner{ margin-top:14px; border-radius:var(--radius-sm); padding:10px 13px; font-size:12.5px; }
+  .banner.warn{ background:#fdf0e3; border:1px solid #f0d9bc; color:#7a4d12; }
+  .banner.ok{ background:#e6f3ec; border:1px solid #c4e6d2; color:#1f7a47; }
+  .banner code{ font-family:"IBM Plex Mono",monospace; background:rgba(0,0,0,.06); padding:1px 5px; border-radius:5px; }
+
+  .panel{ margin-top:16px; }
+  .panel[hidden]{ display:none; }
+  .card{ background:var(--card); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow-2); }
+  .card-b{ padding:16px; }
+  h2.sec{ margin:0 0 2px; font-family:"Fraunces",serif; font-weight:600; font-size:19px; color:var(--az-blue); }
+  .sub{ margin:0 0 14px; font-size:12.5px; color:var(--muted); }
+
+  /* buttons */
+  .btn{ font:inherit; font-weight:600; cursor:pointer; border-radius:12px; padding:13px 16px; border:1.5px solid transparent; min-height:50px; transition:background .15s, transform .06s; display:inline-flex; align-items:center; justify-content:center; gap:8px; }
+  .btn:active{ transform:translateY(1px); }
+  .btn-primary{ background:var(--az-blue); color:#fff; flex:1; }
+  .btn-primary:hover{ background:#15315f; }
+  .btn-ghost{ background:#fff; color:var(--az-blue); border-color:var(--line); flex:1; }
+  .btn-ghost:hover{ background:var(--warm); }
+  .btn[aria-pressed="true"]{ background:var(--oasis); color:#fff; border-color:transparent; }
+  .btn:focus-visible, .navbtn:focus-visible{ outline:3px solid var(--sky); outline-offset:2px; }
+
+  /* scanner */
+  .scanner-wrap{ position:relative; border-radius:14px; overflow:hidden; background:#0d1b34; }
+  #reader{ width:100%; }
+  #reader video{ display:block; width:100% !important; border-radius:14px; }
+  #reader__dashboard_section_csr span, #reader__status_span, #reader img[alt="Info icon"]{ display:none !important; }
+  #reader__dashboard{ padding:8px !important; }
+  .laser{ position:absolute; left:8%; right:8%; top:50%; height:2px; background:linear-gradient(90deg,transparent,var(--sky),transparent); box-shadow:0 0 10px var(--sky); animation:scan 1.8s ease-in-out infinite; pointer-events:none; display:none; }
+  .scanning .laser{ display:block; }
+  @keyframes scan{ 0%,100%{ transform:translateY(-46px); opacity:.5 } 50%{ transform:translateY(46px); opacity:1 } }
+  .flash{ position:absolute; inset:0; pointer-events:none; opacity:0; transition:opacity .12s; }
+  .flash.show{ opacity:.55; }
+  .flash.added{ background:#1f7a47; } .flash.dup{ background:#9a5b16; } .flash.err{ background:var(--red); }
+  .scan-actions, .scan-controls{ display:flex; gap:9px; margin-top:14px; }
+  .scan-hint{ font-size:12.5px; color:var(--muted); margin:12px 0 0; }
+
+  .manual{ margin-top:16px; padding-top:16px; border-top:1px solid var(--line); }
+  .manual label{ display:block; font-size:11px; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); font-weight:700; margin-bottom:8px; }
+  .manual-row{ display:flex; gap:9px; }
+  .ipt{ font:inherit; font-size:16px; padding:13px; border:1.5px solid var(--line); border-radius:12px; min-height:50px; background:#fff; }
+  .ipt:focus{ outline:none; border-color:var(--oasis); box-shadow:0 0 0 3px rgba(55,141,189,.16); }
+  .manual input{ flex:1; font-family:"IBM Plex Mono",monospace; }
+  .manual .btn-primary{ flex:0 0 auto; padding-left:22px; padding-right:22px; }
+
+  .result{ margin-top:16px; padding:14px; border:1px solid var(--line); border-radius:12px; background:var(--warm); display:flex; gap:14px; min-height:92px; align-items:center; }
+  .result.idle{ color:var(--muted); font-size:13px; justify-content:center; text-align:center; }
+  .cover{ width:52px; height:78px; flex:0 0 auto; border-radius:6px; background:linear-gradient(135deg,#dfe7ee,#c7d4df); display:flex; align-items:center; justify-content:center; color:#6b7785; font-family:"Fraunces",serif; font-weight:600; font-size:18px; overflow:hidden; box-shadow:var(--shadow-1); }
+  .cover img{ width:100%; height:100%; object-fit:cover; }
+  .cover img.broken{ display:none; }
+  .result .rt{ font-weight:600; color:var(--az-blue); }
+  .result .ra{ font-size:13px; color:var(--muted); }
+  .result .rm{ font-size:12px; color:var(--ash); margin-top:4px; font-family:"IBM Plex Mono",monospace; }
+  .result .status{ font-size:12.5px; font-weight:600; margin-top:5px; }
+  .status.added{ color:#1f7a47; } .status.dup{ color:#9a5b16; } .status.err{ color:var(--red); } .status.busy{ color:var(--azurite); }
+
+  /* library controls */
+  .lib-tools{ display:flex; gap:9px; flex-wrap:wrap; align-items:center; margin-bottom:12px; }
+  .search{ position:relative; flex:1 1 200px; min-width:0; }
+  .search svg{ position:absolute; left:12px; top:50%; transform:translateY(-50%); color:var(--silver); }
+  .search input{ width:100%; padding-left:38px; }
+  select.ipt{ min-height:46px; padding:8px 12px; }
+  .seg{ display:inline-flex; background:var(--warm); border:1px solid var(--line); border-radius:11px; padding:3px; gap:2px; }
+  .seg button{ font:inherit; font-size:13px; font-weight:600; color:var(--muted); background:transparent; border:none; cursor:pointer; padding:8px 12px; border-radius:8px; min-height:38px; }
+  .seg button[aria-pressed="true"]{ background:#fff; color:var(--az-blue); box-shadow:var(--shadow-1); }
+  .icon-btn{ border:1.5px solid var(--line); background:#fff; border-radius:11px; min-height:46px; padding:0 14px; font-weight:600; color:var(--az-blue); cursor:pointer; }
+  .icon-btn:hover{ background:var(--warm); }
+
+  /* book cards */
+  .list{ display:flex; flex-direction:column; gap:10px; }
+  .book{ display:flex; gap:12px; padding:12px; border:1px solid var(--line); border-radius:12px; background:#fff; }
+  .book .cover{ width:46px; height:68px; font-size:15px; }
+  .book .bmain{ flex:1; min-width:0; }
+  .book .t-title{ font-weight:600; color:var(--az-blue); line-height:1.25; }
+  .book .t-author{ font-size:12.5px; color:var(--muted); }
+  .book .bmeta{ font-size:11.5px; color:var(--ash); margin-top:3px; font-family:"IBM Plex Mono",monospace; word-break:break-word; }
+  .book .cat-tag{ display:inline-block; margin-top:5px; padding:2px 9px; border-radius:999px; font-size:10.5px; font-weight:600; color:#fff; background:var(--silver); }
+  .avail{ margin-top:9px; padding-top:9px; border-top:1px dashed var(--line); display:flex; flex-wrap:wrap; gap:8px 12px; align-items:center; }
+  .badge{ padding:3px 9px; border-radius:999px; font-size:11px; font-weight:700; }
+  .badge.ok{ background:#e6f3ec; color:#1f7a47; } .badge.out{ background:#e7f0f7; color:#1E5288; } .badge.over{ background:#fbe7ea; color:#AB0520; } .badge.some{ background:#fdf0e3; color:#9a5b16; }
+  .btn-loan{ background:var(--azurite); color:#fff; border:none; border-radius:9px; padding:8px 14px; font:inherit; font-weight:600; font-size:13px; cursor:pointer; min-height:40px; }
+  .btn-loan:hover{ background:#173f6b; }
+  .loan-line{ display:flex; align-items:center; gap:8px; flex-wrap:wrap; width:100%; font-size:12px; color:var(--muted); }
+  .loan-line b{ color:var(--ash); } .loan-line.over b{ color:var(--red); } .od{ color:var(--red); font-weight:700; }
+  .btn-return{ background:#fff; color:var(--river); border:1.5px solid #bfe0e1; border-radius:8px; padding:5px 11px; font:inherit; font-weight:600; font-size:12.5px; cursor:pointer; }
+  .btn-return:hover{ background:#eef8f8; }
+  .own{ margin-left:auto; display:inline-flex; align-items:center; gap:7px; font-size:11.5px; color:var(--muted); }
+  .own .stp{ width:28px; height:28px; border-radius:7px; border:1.5px solid var(--line); background:#fff; cursor:pointer; font-weight:700; color:var(--az-blue); line-height:1; }
+  .own .stp:hover{ background:var(--warm); }
+  .own .n{ font-family:"IBM Plex Mono",monospace; min-width:14px; text-align:center; }
+  .x-btn{ border:none; background:none; cursor:pointer; color:var(--silver); font-size:18px; line-height:1; padding:2px 5px; border-radius:7px; }
+  .x-btn:hover{ color:var(--red); background:#fbe7ea; }
+
+  .empty-state{ padding:42px 18px; text-align:center; color:var(--muted); }
+  .empty-state b{ display:block; font-family:"Fraunces",serif; font-size:18px; color:var(--az-blue); margin-bottom:6px; }
+
+  /* activity */
+  .actstats{ display:flex; gap:10px; margin-bottom:14px; }
+  .actstat{ flex:1; background:var(--warm); border:1px solid var(--line); border-radius:12px; padding:12px; text-align:center; }
+  .actstat b{ font-family:"Fraunces",serif; font-size:24px; color:var(--az-blue); display:block; line-height:1; }
+  .actstat span{ font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:.06em; }
+  .hist-list{ list-style:none; margin:0; padding:0; }
+  .hist-list li{ display:flex; align-items:center; gap:10px; padding:11px 0; border-top:1px solid var(--line); font-size:13.5px; flex-wrap:wrap; }
+  .hist-list li:first-child{ border-top:none; }
+  .hist-badge{ font-size:10.5px; font-weight:700; padding:3px 8px; border-radius:999px; white-space:nowrap; }
+  .hist-badge.b-out{ background:#e7f0f7; color:#1E5288; } .hist-badge.b-in{ background:#e6f3ec; color:#1f7a47; }
+  .hist-title{ font-weight:600; color:var(--az-blue); }
+  .hist-who{ color:var(--muted); margin-left:auto; font-size:12.5px; white-space:nowrap; }
+
+  /* bottom nav */
+  nav.tabbar{ position:fixed; left:0; right:0; bottom:0; z-index:40; background:rgba(255,255,255,.92); backdrop-filter:saturate(1.4) blur(10px); border-top:1px solid var(--line); display:flex; padding-bottom:var(--safe-b); }
+  .navbtn{ flex:1; border:none; background:none; cursor:pointer; padding:9px 4px; height:var(--nav-h); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; color:var(--muted); font:inherit; font-size:11px; font-weight:600; }
+  .navbtn svg{ width:23px; height:23px; }
+  .navbtn[aria-current="page"]{ color:var(--az-blue); }
+  .navbtn[aria-current="page"] .dot{ position:absolute; }
+
+  /* dialog */
+  dialog{ border:none; border-radius:16px; padding:0; box-shadow:0 24px 60px rgba(12,35,75,.28); max-width:440px; width:calc(100% - 28px); color:var(--ink); }
+  dialog::backdrop{ background:rgba(12,35,75,.45); }
+  .dlg{ padding:20px; }
+  .dlg h3{ margin:0 0 4px; font-family:"Fraunces",serif; font-size:20px; color:var(--az-blue); }
+  .dlg-book{ background:var(--warm); border:1px solid var(--line); border-radius:10px; padding:11px 13px; margin:13px 0 15px; }
+  .dlg-book .bt{ font-weight:600; color:var(--az-blue); } .dlg-book .bm{ font-size:12px; color:var(--muted); margin-top:2px; }
+  .field{ margin-bottom:13px; } .field[hidden]{ display:none; }
+  .field label{ display:block; font-size:12px; font-weight:600; color:var(--ash); text-transform:uppercase; letter-spacing:.04em; margin-bottom:6px; }
+  .field input{ width:100%; }
+  .field.row{ display:flex; gap:12px; } .field.row>div{ flex:1; }
+  .dlg-error{ color:var(--red); font-size:13px; margin:0 0 12px; font-weight:600; } .dlg-error[hidden]{ display:none; }
+  .dlg-actions{ display:flex; justify-content:flex-end; gap:10px; }
+  .btn-mini{ font:inherit; font-weight:600; cursor:pointer; border-radius:10px; padding:11px 16px; border:1.5px solid var(--line); background:#fff; color:var(--muted); }
+  .btn-go{ border:none; background:var(--az-blue); color:#fff; }
+
+  .toast{ position:fixed; left:50%; bottom:calc(var(--nav-h) + var(--safe-b) + 14px); transform:translateX(-50%) translateY(20px); background:var(--az-blue); color:#fff; padding:12px 18px; border-radius:12px; box-shadow:0 12px 30px rgba(12,35,75,.3); font-size:14px; opacity:0; pointer-events:none; transition:opacity .2s, transform .2s; z-index:90; max-width:92vw; text-align:center; }
+  .toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
+  .sr-only{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+  @media (prefers-reduced-motion:reduce){ *{ transition:none!important; animation:none!important; scroll-behavior:auto!important; } }
+</style>
+</head>
+<body>
+<header class="masthead">
+  <div class="wrap">
+    <svg class="glyph" viewBox="0 0 42 42" aria-hidden="true">
+      <rect x="5" y="9" width="9" height="26" rx="1.5" fill="#81D3EB"/>
+      <rect x="15" y="6" width="9" height="29" rx="1.5" fill="#EF4056"/>
+      <rect x="25" y="12" width="9" height="23" rx="1.5" fill="#fff" opacity=".92"/>
+      <rect x="3" y="35" width="36" height="3" rx="1.5" fill="#fff" opacity=".5"/>
+    </svg>
+    <div class="wordmark"><span class="z">B</span>oiBari</div>
+    <div class="hstats" id="hstats" aria-hidden="true"></div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div id="connBanner"></div>
+
+  <!-- ===================  SCAN  =================== -->
+  <section class="panel" data-tab="scan">
+    <div class="card"><div class="card-b">
+      <h2 class="sec">Scan a book</h2>
+      <p class="sub">Camera on the barcode (EAN-13) or QR — or a Bluetooth/USB barcode scanner. New scans join your catalog and become lendable.</p>
+
+      <div class="scanner-wrap" id="scannerWrap">
+        <div id="reader"></div>
+        <div class="laser"></div>
+        <div class="flash" id="flash"></div>
+      </div>
+
+      <div class="scan-actions" id="scanActions">
+        <button class="btn btn-primary" id="startBtn" type="button">📷 Open camera</button>
+      </div>
+      <div class="scan-controls" id="scanControls" hidden>
+        <button class="btn btn-ghost" id="stopBtn" type="button">Stop</button>
+        <button class="btn btn-ghost" id="flipBtn" type="button">Flip</button>
+        <button class="btn btn-ghost" id="torchBtn" type="button" aria-pressed="false" hidden>Torch</button>
+      </div>
+      <p class="scan-hint" id="scanHint">Tip: camera needs an https page (works on GitHub Pages). A hardware scanner works anywhere.</p>
+
+      <div class="manual">
+        <label for="isbnInput">Add by ISBN (or scan into this box)</label>
+        <div class="manual-row">
+          <input id="isbnInput" class="ipt" inputmode="numeric" enterkeyhint="done" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="e.g. 9780262134729" />
+          <button class="btn btn-primary" id="addBtn" type="button">Add</button>
+        </div>
+      </div>
+
+      <div class="result idle" id="result" aria-live="polite">Scanned books will appear here.</div>
+    </div></div>
+  </section>
+
+  <!-- ===================  LIBRARY  =================== -->
+  <section class="panel" data-tab="library" hidden>
+    <div class="card"><div class="card-b">
+      <h2 class="sec">Library</h2>
+      <p class="sub" id="libSub">Search your scanned books, then check them in and out.</p>
+
+      <div class="lib-tools">
+        <div class="search">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M20 20l-3.2-3.2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <label class="sr-only" for="libSearch">Search the library</label>
+          <input id="libSearch" class="ipt" type="search" autocomplete="off" placeholder="Title, author, ISBN…" />
+        </div>
+        <label class="sr-only" for="catSelect">Category</label>
+        <select id="catSelect" class="ipt"></select>
+        <button class="icon-btn" id="csvBtn" type="button">CSV</button>
+      </div>
+      <div class="lib-tools">
+        <div class="seg" id="availSeg" role="group" aria-label="Availability">
+          <button type="button" data-avail="all" aria-pressed="true">All</button>
+          <button type="button" data-avail="available" aria-pressed="false">Available</button>
+          <button type="button" data-avail="loan" aria-pressed="false">On loan</button>
+        </div>
+      </div>
+
+      <div class="list" id="libList"></div>
+      <div class="empty-state" id="libEmpty">
+        <b>No books yet.</b>
+        Head to the Scan tab and scan a few books to build your catalog.
+      </div>
+    </div></div>
+  </section>
+
+  <!-- ===================  ACTIVITY  =================== -->
+  <section class="panel" data-tab="activity" hidden>
+    <div class="card"><div class="card-b">
+      <h2 class="sec">Activity</h2>
+      <p class="sub">Your collection at a glance and a log of every checkout and return.</p>
+      <div class="actstats" id="actStats"></div>
+      <ul class="hist-list" id="histList"></ul>
+      <div class="empty-state" id="histEmpty" hidden><b>No loans yet.</b>Check a book out from the Library tab to start the log.</div>
+    </div></div>
+  </section>
+</main>
+
+<nav class="tabbar" role="tablist" aria-label="Sections">
+  <button class="navbtn" data-tab="scan" aria-current="page">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2M3 12h18"/></svg>
+    Scan
+  </button>
+  <button class="navbtn" data-tab="library">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a1 1 0 0 1 1-1h4v16H5a1 1 0 0 1-1-1zM10 4h4v16h-4zM15.5 4.4l3 .8 .9 14.4-3.8-1z"/></svg>
+    Library
+  </button>
+  <button class="navbtn" data-tab="activity">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+    Activity
+  </button>
+</nav>
+
+<dialog id="loanDialog" aria-labelledby="dlgTitle">
+  <form class="dlg" id="loanForm">
+    <h3 id="dlgTitle">Check out</h3>
+    <div class="dlg-book"><div class="bt" id="dlgBookTitle"></div><div class="bm" id="dlgBookMeta"></div></div>
+    <div class="field" id="fldName">
+      <label for="borrower">Borrower name</label>
+      <input id="borrower" class="ipt" type="text" maxlength="60" autocomplete="name" placeholder="Who's borrowing it?" />
+    </div>
+    <div class="field row">
+      <div id="fldOut"><label for="outDate" id="outLabel">Check-out date</label><input id="outDate" class="ipt" type="date" /></div>
+      <div id="fldDue"><label for="dueDate">Due date</label><input id="dueDate" class="ipt" type="date" /></div>
+    </div>
+    <p class="dlg-error" id="dlgError" hidden></p>
+    <div class="dlg-actions">
+      <button type="button" class="btn-mini" id="dlgCancel">Cancel</button>
+      <button type="submit" class="btn-mini btn-go" id="dlgConfirm">Confirm checkout</button>
+    </div>
+  </form>
+</dialog>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* ============================================================================
+   BoiBari — Scan + Library(find/lend) + Activity, one shared Google Sheet
+   ========================================================================== */
+const ICON_URI = "data:image/png;base64,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";
+(function(){ try{
+  const m={ name:"BoiBari", short_name:"BoiBari", start_url:".", scope:".", display:"standalone", background_color:"#FBFAF7", theme_color:"#0C234B", icons:[{src:ICON_URI,sizes:"512x512",type:"image/png",purpose:"any maskable"}] };
+  const l=document.createElement("link"); l.rel="manifest"; l.href=URL.createObjectURL(new Blob([JSON.stringify(m)],{type:"application/manifest+json"})); document.head.appendChild(l);
+}catch(e){} })();
+
+/* ---- connect your spreadsheet (one Apps Script /exec URL for everything) -- */
+const SHEET_API_URL = "";   // paste your Apps Script Web App /exec URL
+const SHEET_SECRET  = "";   // must match SECRET in the Apps Script (or "")
+
+/* ============================  ISBN utils  ============================== */
+const onlyISBN = s => String(s).toUpperCase().replace(/[^0-9X]/g, "");
+function validISBN13(d){ if(!/^\d{13}$/.test(d)) return false; let s=0; for(let i=0;i<13;i++) s+=(i%2?3:1)*(+d[i]); return s%10===0; }
+function validISBN10(d){ if(!/^\d{9}[\dX]$/.test(d)) return false; let s=0; for(let i=0;i<10;i++){ const c=d[i]==="X"?10:+d[i]; s+=(10-i)*c; } return s%11===0; }
+function isbn10to13(d){ const core="978"+d.slice(0,9); let s=0; for(let i=0;i<12;i++) s+=(i%2?3:1)*(+core[i]); return core+((10-(s%10))%10); }
+function normalizeISBN(raw){ const d=onlyISBN(raw); if(d.length===13&&/^97[89]/.test(d)&&validISBN13(d))return d; if(d.length===10&&validISBN10(d))return isbn10to13(d); return null; }
+const fmtISBN = d => d&&d.length===13 ? d.replace(/(\d{3})(\d)(\d{3})(\d{5})(\d)/,"$1-$2-$3-$4-$5") : d;
+
+/* ============================  cache + state  =========================== */
+const storage = (() => { let mem={}, ok=false;
+  try{ const t="__bb__"; localStorage.setItem(t,"1"); localStorage.removeItem(t); ok=true; }catch(e){}
+  return { persistent:ok, get(k){ try{return ok?localStorage.getItem(k):(k in mem?mem[k]:null);}catch(e){return (k in mem)?mem[k]:null;} }, set(k,v){ try{ if(ok){localStorage.setItem(k,v);return;} }catch(e){} mem[k]=v; } };
+})();
+const K_BOOKS="boibari.app.books.v1", K_LOANS="boibari.app.loans.v1", K_HIST="boibari.app.hist.v1";
+const parse=(s,fb)=>{ try{ const v=JSON.parse(s); return v==null?fb:v; }catch(e){ return fb; } };
+
+let books   = parse(storage.get(K_BOOKS), []);     // [{isbn,title,author,year,pages,category,cover,copies,addedAt}]
+let loans   = normLoans(parse(storage.get(K_LOANS), []));   // [{id,isbn,copy,title,borrower,out,due}]
+let history = parse(storage.get(K_HIST), []);
+
+function normLoans(v){ return Array.isArray(v) ? v.filter(l=>l&&l.isbn).map(l=>({ id:l.id||(l.isbn+"#"+(l.copy||1)), isbn:l.isbn, copy:Number(l.copy)||1, title:l.title||"", borrower:String(l.borrower||""), out:String(l.out||""), due:String(l.due||"") })) : []; }
+function cacheLocal(){ storage.set(K_BOOKS,JSON.stringify(books)); storage.set(K_LOANS,JSON.stringify(loans)); storage.set(K_HIST,JSON.stringify(history.slice(-200))); }
+
+const bookByISBN = isbn => books.find(b=>b.isbn===isbn);
+const loansFor = isbn => loans.filter(l=>l.isbn===isbn);
+const ownedCopies = b => Number(b.copies)||1;
+const availableCount = b => Math.max(0, ownedCopies(b) - loansFor(b.isbn).length);
+const findLoan = id => loans.find(l=>l.id===id);
+function nextFreeCopy(b){ const used=new Set(loansFor(b.isbn).map(l=>l.copy)); for(let i=1;i<=ownedCopies(b);i++) if(!used.has(i)) return i; return null; }
+
+/* ============================  dates  =================================== */
+const isoOf = dt => dt.getFullYear()+"-"+String(dt.getMonth()+1).padStart(2,"0")+"-"+String(dt.getDate()).padStart(2,"0");
+const TODAY = isoOf(new Date());
+function addDays(iso,n){ const [y,m,d]=iso.split("-").map(Number); const dt=new Date(y,m-1,d); dt.setDate(dt.getDate()+n); return isoOf(dt); }
+function fmtDate(iso){ if(!iso) return ""; const [y,m,d]=iso.split("-").map(Number); return new Date(y,m-1,d).toLocaleDateString(undefined,{year:"numeric",month:"short",day:"numeric"}); }
+const isOverdue = l => !!(l&&l.due&&l.due<TODAY);
+
+/* ============================  sheet sync  ============================= */
+async function apiGet(){ const r=await fetch(SHEET_API_URL); return r.json(); }
+async function apiPost(p){ const r=await fetch(SHEET_API_URL,{ method:"POST", headers:{"Content-Type":"text/plain;charset=utf-8"}, body:JSON.stringify(Object.assign({secret:SHEET_SECRET},p)) }); return r.json(); }
+function applyServer(s){ if(!s) return; if(Array.isArray(s.books)) books=s.books; if(Array.isArray(s.loans)) loans=normLoans(s.loans); if(Array.isArray(s.history)) history=s.history; cacheLocal(); renderAll(); }
+async function loadFromSheet(){ if(!SHEET_API_URL) return; try{ applyServer(await apiGet()); }catch(e){ toastMsg("Showing your local copy — couldn't reach the sheet."); } }
+async function pushToSheet(p){ if(!SHEET_API_URL) return; try{ applyServer(await apiPost(p)); }catch(e){ toastMsg("Saved on this device — couldn't reach the sheet."); } }
+
+/* ============================  metadata lookup  ======================== */
+async function lookupISBN(isbn){
+  try{ const r=await fetch("https://openlibrary.org/api/books?bibkeys=ISBN:"+isbn+"&format=json&jscmd=data"); const j=await r.json(); const rec=j["ISBN:"+isbn];
+    if(rec){ const yr=(rec.publish_date||"").match(/\d{4}/); return { isbn, title:rec.title||"Untitled", author:(rec.authors||[]).map(a=>a.name).join(", "), year:yr?yr[0]:"", pages:rec.number_of_pages||"", category:(rec.subjects&&rec.subjects[0]&&rec.subjects[0].name)||"Unsorted", cover:(rec.cover&&(rec.cover.medium||rec.cover.large||rec.cover.small))||"" }; } }catch(e){}
+  try{ const r=await fetch("https://www.googleapis.com/books/v1/volumes?q=isbn:"+isbn); const j=await r.json();
+    if(j.totalItems>0){ const v=j.items[0].volumeInfo||{}; const yr=(v.publishedDate||"").match(/\d{4}/); return { isbn, title:v.title||"Untitled", author:(v.authors||[]).join(", "), year:yr?yr[0]:"", pages:v.pageCount||"", category:(v.categories&&v.categories[0])||"Unsorted", cover:(v.imageLinks&&(v.imageLinks.thumbnail||v.imageLinks.smallThumbnail))||"" }; } }catch(e){}
+  return { isbn, title:"Unknown title", author:"", year:"", pages:"", category:"Unsorted", cover:"" };
+}
+
+/* ============================  refs + helpers  ========================= */
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"]/g,c=>({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;" }[c]));
+const initials = t => (t||"?").replace(/[^A-Za-z0-9 ]/g,"").split(/\s+/).filter(Boolean).slice(0,2).map(w=>w[0]).join("").toUpperCase()||"?";
+function coverHTML(b, big){ const fb="https://covers.openlibrary.org/b/isbn/"+b.isbn+"-"+(big?"M":"S")+".jpg?default=false"; const src=b.cover||fb; return '<span class="cover">'+esc(initials(b.title))+'<img src="'+esc(src)+'" alt="" loading="lazy" onerror="this.classList.add(\'broken\')"/></span>'; }
+let toastTimer=null; function toastMsg(m){ const t=$("toast"); t.textContent=m; t.classList.add("show"); clearTimeout(toastTimer); toastTimer=setTimeout(()=>t.classList.remove("show"),3000); }
+
+(function(){ const banner=$("connBanner");
+  if(SHEET_API_URL){ banner.className="banner ok"; banner.innerHTML="✓ Connected — catalog &amp; loans are shared through your Google Sheet."; }
+  else { banner.className="banner warn"; banner.innerHTML="Saving on this device only. To share across phones, set <code>SHEET_API_URL</code> near the top of this file."; }
+})();
+
+/* ============================  render: all  =========================== */
+function renderAll(){ renderHeader(); renderLibrary(); renderActivity(); }
+function renderHeader(){
+  const copies=books.reduce((s,b)=>s+ownedCopies(b),0);
+  $("hstats").innerHTML =
+    '<div class="hstat"><b>'+books.length+'</b><span>titles</span></div>'+
+    '<div class="hstat"><b>'+loans.length+'</b><span>on loan</span></div>';
+}
+
+/* ============================  SCAN  =================================== */
+const flashEl=$("flash"), resultEl=$("result");
+function feedback(kind){ try{ if(navigator.vibrate){ if(kind==="added")navigator.vibrate(60); else if(kind==="dup")navigator.vibrate([25,40,25]); else if(kind==="err")navigator.vibrate(170); } }catch(e){}
+  flashEl.className="flash show "+kind; setTimeout(()=>{ flashEl.className="flash"; },300); }
+function showResult(state,b,msg){ if(state==="idle"){ resultEl.className="result idle"; resultEl.textContent=msg||"Scanned books will appear here."; return; }
+  resultEl.className="result"; resultEl.innerHTML=(b?coverHTML(b,true):'<span class="cover">…</span>')+
+    '<div class="info"><div class="rt">'+esc(b&&b.title?b.title:"—")+'</div><div class="ra">'+esc(b&&b.author?b.author:"")+'</div>'+
+    '<div class="rm">'+esc(b?fmtISBN(b.isbn):"")+'</div><div class="status '+state+'">'+esc(msg)+'</div></div>'; }
+
+let processing=false; const recent={};
+async function addByISBN(raw){
+  const isbn=normalizeISBN(raw);
+  if(!isbn){ feedback("err"); showResult("err",{isbn:String(raw),title:"Not a book barcode"},"That code isn't a valid ISBN."); toastMsg("That doesn't look like a book ISBN."); return; }
+  const now=Date.now(); if(recent[isbn]&&now-recent[isbn]<2500) return; recent[isbn]=now; if(processing) return;
+  const existing=bookByISBN(isbn);
+  if(existing){ existing.copies=ownedCopies(existing)+1; cacheLocal(); renderAll(); feedback("dup");
+    showResult("dup",existing,"Already in your catalog — now "+existing.copies+" copies."); toastMsg("Added a copy of “"+existing.title+"”.");
+    pushToSheet({action:"add",isbn,title:existing.title,author:existing.author,year:existing.year,pages:existing.pages,category:existing.category,cover:existing.cover,copies:1}); return; }
+  processing=true; showResult("busy",{isbn,title:"Looking up…"},"Fetching details…");
+  const meta=await lookupISBN(isbn); const book=Object.assign({copies:1,addedAt:new Date().toISOString()},meta);
+  books.push(book); cacheLocal(); renderAll(); feedback("added");
+  showResult("added",book,"Added to your catalog."); toastMsg("Added “"+(book.title||isbn)+"”.");
+  pushToSheet({action:"add",isbn:book.isbn,title:book.title,author:book.author,year:book.year,pages:book.pages,category:book.category,cover:book.cover,copies:1,addedAt:book.addedAt});
+  processing=false;
+}
+
+/* camera */
+let html5=null, running=false, currentFacing="environment", torchOn=false;
+const scannerWrap=$("scannerWrap"), startBtn=$("startBtn"), stopBtn=$("stopBtn"), flipBtn=$("flipBtn"), torchBtn=$("torchBtn");
+const scanActions=$("scanActions"), scanControls=$("scanControls"), scanHint=$("scanHint");
+function scannerFormats(){ if(typeof Html5QrcodeSupportedFormats==="undefined") return undefined;
+  return [Html5QrcodeSupportedFormats.EAN_13,Html5QrcodeSupportedFormats.EAN_8,Html5QrcodeSupportedFormats.UPC_A,Html5QrcodeSupportedFormats.UPC_E,Html5QrcodeSupportedFormats.QR_CODE,Html5QrcodeSupportedFormats.CODE_128]; }
+const scanConfig = () => ({ fps:12, qrbox:(w,h)=>{ const m=Math.min(w,h); const s=Math.max(160,Math.round(Math.min(300,m*0.82))); return {width:s,height:Math.round(s*0.62)}; } });
+async function startScanner(){
+  if(typeof Html5Qrcode==="undefined"){ scanHint.textContent="Scanner library didn't load. Use the ISBN box or a hardware scanner."; return; }
+  scanActions.hidden=true; scanControls.hidden=false; scannerWrap.classList.add("scanning");
+  html5=new Html5Qrcode("reader",{ formatsToSupport:scannerFormats(), verbose:false });
+  try{ await html5.start({facingMode:currentFacing},scanConfig(),t=>addByISBN(t),()=>{}); running=true; afterStart(); }
+  catch(err){ try{ const cams=await Html5Qrcode.getCameras(); if(cams&&cams.length){ const back=cams.find(c=>/back|rear|environment/i.test(c.label||""))||cams[cams.length-1]; await html5.start(back.id,scanConfig(),t=>addByISBN(t),()=>{}); running=true; afterStart(); } else throw err; }
+    catch(e2){ scanHint.textContent="Couldn't start the camera ("+((e2&&e2.message)||e2)+"). Use the ISBN box or a hardware scanner."; scannerWrap.classList.remove("scanning"); scanActions.hidden=false; scanControls.hidden=true; } }
+}
+function afterStart(){ scanHint.textContent="Hold the book's barcode steady in the frame."; try{ const caps=html5.getRunningTrackCapabilities?html5.getRunningTrackCapabilities():null; torchBtn.hidden=!(caps&&caps.torch); }catch(e){ torchBtn.hidden=true; } torchOn=false; torchBtn.setAttribute("aria-pressed","false"); torchBtn.textContent="Torch"; }
+async function stopScanner(){ scannerWrap.classList.remove("scanning"); try{ if(html5&&running){ await html5.stop(); await html5.clear(); } }catch(e){} html5=null; running=false; scanActions.hidden=false; scanControls.hidden=true; }
+async function flipCamera(){ currentFacing=currentFacing==="environment"?"user":"environment"; await stopScanner(); await startScanner(); }
+async function toggleTorch(){ try{ torchOn=!torchOn; await html5.applyVideoConstraints({advanced:[{torch:torchOn}]}); torchBtn.setAttribute("aria-pressed",torchOn?"true":"false"); torchBtn.textContent=torchOn?"Torch on":"Torch"; }catch(e){ torchOn=false; toastMsg("Torch isn't available on this camera."); } }
+startBtn.addEventListener("click",startScanner);
+stopBtn.addEventListener("click",()=>{ stopScanner(); scanHint.textContent="Scanner stopped."; });
+flipBtn.addEventListener("click",flipCamera);
+torchBtn.addEventListener("click",toggleTorch);
+
+/* hardware (HID) scanner: fast keystrokes ending in Enter, any tab */
+let wedge="", wedgeAt=0;
+document.addEventListener("keydown", e => {
+  const el=document.activeElement, tag=el?el.tagName:""; if(tag==="INPUT"||tag==="TEXTAREA") return;
+  const now=Date.now(); if(now-wedgeAt>120) wedge=""; wedgeAt=now;
+  if(e.key==="Enter"){ if(wedge.length>=8) addByISBN(wedge); wedge=""; return; }
+  if(/^[0-9Xx]$/.test(e.key)) wedge+=e.key;
+});
+
+/* manual */
+$("addBtn").addEventListener("click",()=>{ const v=$("isbnInput").value.trim(); if(v){ addByISBN(v); $("isbnInput").value=""; $("isbnInput").focus(); } });
+$("isbnInput").addEventListener("keydown",e=>{ if(e.key==="Enter"){ e.preventDefault(); $("addBtn").click(); } });
+
+/* ============================  LIBRARY  =============================== */
+const libList=$("libList"), libEmpty=$("libEmpty"), libSearch=$("libSearch"), catSelect=$("catSelect"), availSeg=$("availSeg");
+let availFilter="all";
+availSeg.addEventListener("click",e=>{ const b=e.target.closest("button"); if(!b) return; availFilter=b.dataset.avail; availSeg.querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",x===b?"true":"false")); renderLibrary(); });
+libSearch.addEventListener("input",renderLibrary);
+catSelect.addEventListener("change",renderLibrary);
+
+function refreshCategories(){
+  const cats=Array.from(new Set(books.map(b=>b.category||"Unsorted"))).sort((a,b)=>a.localeCompare(b));
+  const cur=catSelect.value;
+  catSelect.innerHTML='<option value="">All categories</option>'+cats.map(c=>'<option>'+esc(c)+'</option>').join("");
+  if(cur&&cats.indexOf(cur)!==-1) catSelect.value=cur;
+}
+
+function availabilityHTML(b){
+  const active=loansFor(b.isbn).slice().sort((x,y)=>(x.copy||0)-(y.copy||0));
+  const free=ownedCopies(b)-active.length; const over=active.some(isOverdue);
+  let h='<div class="avail">';
+  if(free===ownedCopies(b)) h+='<span class="badge ok">Available'+(ownedCopies(b)>1?' · '+free+' of '+ownedCopies(b):'')+'</span>';
+  else if(free===0) h+='<span class="badge '+(over?'over':'out')+'">'+(over?'Overdue':'All out')+'</span>';
+  else h+='<span class="badge '+(over?'over':'some')+'">'+free+' of '+ownedCopies(b)+' free</span>';
+  if(free>0) h+='<button class="btn-loan" data-act="checkout" data-isbn="'+esc(b.isbn)+'">Check out</button>';
+  h+='<span class="own">owned <button class="stp" data-act="dec" data-isbn="'+esc(b.isbn)+'" aria-label="Reduce owned copies">−</button><span class="n">'+ownedCopies(b)+'</span><button class="stp" data-act="inc" data-isbn="'+esc(b.isbn)+'" aria-label="Add an owned copy">+</button>'+
+     '<button class="x-btn" data-act="remove" data-isbn="'+esc(b.isbn)+'" aria-label="Remove book" title="Remove from catalog">×</button></span>';
+  active.forEach(l=>{ const od=isOverdue(l); h+='<div class="loan-line'+(od?' over':'')+'">to <b>'+esc(l.borrower)+'</b> · due '+fmtDate(l.due)+(od?' · <span class="od">overdue</span>':'')+' <button class="btn-return" data-act="return" data-id="'+esc(l.id)+'">Return</button></div>'; });
+  return h+'</div>';
+}
+
+function renderLibrary(){
+  refreshCategories();
+  const q=(libSearch.value||"").trim().toLowerCase(); const cat=catSelect.value;
+  let rows=books.slice();
+  if(q) rows=rows.filter(b=>(b.title+" "+b.author+" "+b.isbn+" "+b.category).toLowerCase().indexOf(q)!==-1);
+  if(cat) rows=rows.filter(b=>(b.category||"Unsorted")===cat);
+  if(availFilter==="available") rows=rows.filter(b=>availableCount(b)>0);
+  else if(availFilter==="loan") rows=rows.filter(b=>loansFor(b.isbn).length>0);
+  rows.sort((a,b)=>(a.title||"").localeCompare(b.title||""));
+
+  libEmpty.hidden = books.length!==0;
+  if(books.length && rows.length===0){ libEmpty.hidden=false; libEmpty.querySelector("b").textContent="No matches."; libEmpty.lastChild.textContent=""; }
+  else if(books.length){ libEmpty.hidden=true; }
+
+  libList.innerHTML = rows.map(b =>
+    '<div class="book">'+coverHTML(b,false)+
+      '<div class="bmain">'+
+        '<div class="t-title">'+esc(b.title||"Untitled")+'</div>'+
+        '<div class="t-author">'+esc(b.author||"Unknown author")+'</div>'+
+        '<div class="bmeta">'+[b.year,(b.pages?b.pages+"p":""),fmtISBN(b.isbn)].filter(Boolean).map(esc).join(" · ")+'</div>'+
+        '<span class="cat-tag">'+esc(b.category||"Unsorted")+'</span>'+
+        availabilityHTML(b)+
+      '</div>'+
+    '</div>'
+  ).join("");
+}
+
+/* library actions: lend / return / owned-copies / remove */
+libList.addEventListener("click", e => {
+  const btn=e.target.closest("[data-act]"); if(!btn) return;
+  const act=btn.dataset.act;
+  if(act==="checkout"){ const b=bookByISBN(btn.dataset.isbn); if(b) openCheckout(b); return; }
+  if(act==="return"){ const l=findLoan(btn.dataset.id); if(l) openReturn(l); return; }
+  const b=bookByISBN(btn.dataset.isbn); if(!b) return;
+  if(act==="inc"){ b.copies=ownedCopies(b)+1; cacheLocal(); renderAll(); pushToSheet({action:"setcopies",isbn:b.isbn,copies:b.copies}); }
+  else if(act==="dec"){ const n=ownedCopies(b)-1; if(n<loansFor(b.isbn).length){ toastMsg("That copy is on loan — return it first."); return; } b.copies=n; if(n<=0){ books=books.filter(x=>x.isbn!==b.isbn); pushToSheet({action:"remove",isbn:b.isbn}); } else pushToSheet({action:"setcopies",isbn:b.isbn,copies:n}); cacheLocal(); renderAll(); }
+  else if(act==="remove"){ if(loansFor(b.isbn).length){ toastMsg("Return its copies before removing."); return; } books=books.filter(x=>x.isbn!==b.isbn); cacheLocal(); renderAll(); toastMsg("Removed “"+(b.title||b.isbn)+"”."); pushToSheet({action:"remove",isbn:b.isbn}); }
+});
+
+/* ============================  loan dialog  =========================== */
+const loanDialog=$("loanDialog"), loanForm=$("loanForm"), dlgTitle=$("dlgTitle"), dlgBookTitle=$("dlgBookTitle"), dlgBookMeta=$("dlgBookMeta"), dlgError=$("dlgError");
+const fldName=$("fldName"), fldDue=$("fldDue"), borrower=$("borrower"), outDate=$("outDate"), dueDate=$("dueDate"), outLabel=$("outLabel"), dlgConfirm=$("dlgConfirm");
+let dlgMode="checkout", dlgISBN=null, dlgCopy=null, dlgLoanId=null;
+function showError(m){ dlgError.textContent=m; dlgError.hidden=false; }
+function openCheckout(b){ const copy=nextFreeCopy(b); if(copy===null){ toastMsg("No copies of “"+b.title+"” are free."); return; }
+  dlgMode="checkout"; dlgISBN=b.isbn; dlgCopy=copy; dlgLoanId=null;
+  dlgTitle.textContent="Check out"; dlgBookTitle.textContent=b.title||b.isbn;
+  dlgBookMeta.textContent=(b.author||"")+" · "+fmtISBN(b.isbn)+(ownedCopies(b)>1?" · copy "+copy+" of "+ownedCopies(b):"");
+  fldName.hidden=false; borrower.value=""; fldDue.hidden=false; outLabel.textContent="Check-out date"; outDate.value=TODAY; dueDate.value=addDays(TODAY,14);
+  dlgConfirm.textContent="Confirm checkout"; dlgError.hidden=true; loanDialog.showModal(); setTimeout(()=>borrower.focus(),30); }
+function openReturn(l){ const b=bookByISBN(l.isbn);
+  dlgMode="return"; dlgISBN=l.isbn; dlgLoanId=l.id; dlgCopy=l.copy;
+  dlgTitle.textContent="Return book"; dlgBookTitle.textContent=l.title||(b?b.title:l.isbn);
+  dlgBookMeta.textContent="Borrowed by "+l.borrower+" · out "+fmtDate(l.out)+" · due "+fmtDate(l.due);
+  fldName.hidden=true; fldDue.hidden=true; outLabel.textContent="Return date"; outDate.value=TODAY;
+  dlgConfirm.textContent="Return book"; dlgError.hidden=true; loanDialog.showModal(); setTimeout(()=>dlgConfirm.focus(),30); }
+
+loanForm.addEventListener("submit", e => {
+  e.preventDefault();
+  if(dlgMode==="checkout"){
+    const b=bookByISBN(dlgISBN); if(!b) return;
+    const name=borrower.value.trim();
+    if(!name){ showError("Please enter the borrower’s name."); borrower.focus(); return; }
+    if(!outDate.value){ showError("Please choose a check-out date."); return; }
+    if(!dueDate.value){ showError("Please choose a due date."); return; }
+    if(dueDate.value<outDate.value){ showError("The due date can’t be before the check-out date."); return; }
+    let copy=dlgCopy; if(findLoan(b.isbn+"#"+copy)){ copy=nextFreeCopy(b); if(copy===null){ showError("Sorry, no copies are free anymore."); return; } }
+    const loan={ id:b.isbn+"#"+copy, isbn:b.isbn, copy, title:b.title, borrower:name, out:outDate.value, due:dueDate.value };
+    loans.push(loan); history.push({action:"out",isbn:b.isbn,title:b.title,borrower:name,date:outDate.value,ts:Date.now()});
+    cacheLocal(); loanDialog.close(); renderAll(); toastMsg("Checked out “"+b.title+"” to "+name+".");
+    pushToSheet({action:"checkout",id:loan.id,isbn:loan.isbn,copy:loan.copy,title:loan.title,borrower:loan.borrower,out:loan.out,due:loan.due});
+  } else {
+    const l=findLoan(dlgLoanId); if(!l){ loanDialog.close(); renderAll(); return; }
+    if(!outDate.value){ showError("Please choose a return date."); return; }
+    loans=loans.filter(x=>x.id!==l.id); history.push({action:"in",isbn:l.isbn,title:l.title,borrower:l.borrower,date:outDate.value,ts:Date.now()});
+    cacheLocal(); loanDialog.close(); renderAll(); toastMsg("Returned “"+l.title+"” from "+l.borrower+".");
+    pushToSheet({action:"return",id:l.id,isbn:l.isbn,title:l.title,borrower:l.borrower,date:outDate.value});
+  }
+});
+$("dlgCancel").addEventListener("click",()=>loanDialog.close());
+
+/* ============================  ACTIVITY  ============================== */
+function renderActivity(){
+  const titles=books.length, copies=books.reduce((s,b)=>s+ownedCopies(b),0), out=loans.length;
+  $("actStats").innerHTML =
+    '<div class="actstat"><b>'+titles+'</b><span>titles</span></div>'+
+    '<div class="actstat"><b>'+copies+'</b><span>copies</span></div>'+
+    '<div class="actstat"><b>'+out+'</b><span>on loan</span></div>';
+  const hist=$("histList"), empty=$("histEmpty");
+  if(!history.length){ hist.innerHTML=""; empty.hidden=false; return; }
+  empty.hidden=true;
+  hist.innerHTML = history.slice().reverse().slice(0,150).map(h =>
+    '<li><span class="hist-badge '+(h.action==="out"?"b-out":"b-in")+'">'+(h.action==="out"?"Checked out":"Returned")+'</span>'+
+    '<span class="hist-title">'+esc(h.title||"")+'</span>'+
+    '<span class="hist-who">'+(h.borrower?esc(h.borrower)+" · ":"")+fmtDate(h.date)+'</span></li>').join("");
+}
+
+/* ============================  CSV  =================================== */
+$("csvBtn").addEventListener("click",()=>{
+  const header=["ISBN","Title","Authors","Year","Pages","Category","OwnedCopies","OnLoan","AddedAt"];
+  const cell=v=>{ const s=String(v==null?"":v); return /[",\n]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s; };
+  const lines=[header.join(",")].concat(books.map(b=>[b.isbn,b.title,b.author,b.year,b.pages,b.category,ownedCopies(b),loansFor(b.isbn).length,b.addedAt].map(cell).join(",")));
+  const a=document.createElement("a"); a.href=URL.createObjectURL(new Blob([lines.join("\n")],{type:"text/csv"})); a.download="boibari-catalog.csv";
+  document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(a.href);
+});
+
+/* ============================  tabs  ================================== */
+const panels=Array.from(document.querySelectorAll(".panel"));
+const navBtns=Array.from(document.querySelectorAll(".navbtn"));
+function showTab(name){
+  panels.forEach(p=>p.hidden=p.dataset.tab!==name);
+  navBtns.forEach(b=>b.setAttribute("aria-current",b.dataset.tab===name?"page":"false"));
+  if(name!=="scan" && running) stopScanner();   // free the camera when leaving Scan
+  window.scrollTo({top:0,behavior:"auto"});
+}
+navBtns.forEach(b=>b.addEventListener("click",()=>showTab(b.dataset.tab)));
+
+/* ============================  go  =================================== */
+renderAll();
+loadFromSheet();
+</script>
+</body>
+</html>
