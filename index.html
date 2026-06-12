@@ -328,7 +328,7 @@ const ICON_URI = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAYAAAD0
 }catch(e){} })();
 
 /* ---- connect your spreadsheet (one Apps Script /exec URL for everything) -- */
-const SHEET_API_URL = "https://script.google.com/macros/s/AKfycbzKO5HSefiAsqjDu2kC3NSErJdMZ8dWNSmdZOA0xhfjhVxsqc5GlFFxjcdIITHnaci9tQ/exec";   // paste your Apps Script Web App /exec URL
+const SHEET_API_URL = "";   // paste your Apps Script Web App /exec URL
 const SHEET_SECRET  = "";   // must match SECRET in the Apps Script (or "")
 
 /* ============================  ISBN utils  ============================== */
@@ -437,18 +437,20 @@ const scannerWrap=$("scannerWrap"), startBtn=$("startBtn"), stopBtn=$("stopBtn")
 const scanActions=$("scanActions"), scanControls=$("scanControls"), scanHint=$("scanHint");
 function scannerFormats(){ if(typeof Html5QrcodeSupportedFormats==="undefined") return undefined;
   return [Html5QrcodeSupportedFormats.EAN_13,Html5QrcodeSupportedFormats.EAN_8,Html5QrcodeSupportedFormats.UPC_A,Html5QrcodeSupportedFormats.UPC_E,Html5QrcodeSupportedFormats.QR_CODE,Html5QrcodeSupportedFormats.CODE_128]; }
-const scanConfig = () => ({ fps:10, qrbox:(w,h)=>{ const bw=Math.round(Math.min(w*0.92,420)); const bh=Math.round(Math.max(120,Math.min(h*0.6,bw*0.5))); return {width:bw,height:bh}; } });
-/* high-res stream + continuous autofocus — the fix for blurry iPhone Safari scanning */
-function camConstraints(idOrFacing,isId){ const base={ width:{ideal:1920}, height:{ideal:1080}, advanced:[{focusMode:"continuous"}] }; return isId ? Object.assign({deviceId:{exact:idOrFacing}},base) : Object.assign({facingMode:idOrFacing},base); }
+const scanConfig = () => ({ fps:10, qrbox:(w,h)=>{ const bw=Math.round(Math.min(w*0.9,400)); const bh=Math.round(Math.min(h*0.55,bw*0.5)); return {width:Math.max(120,Math.min(bw,w)),height:Math.max(80,Math.min(bh,h))}; } });
+/* applied AFTER the stream is live (never blocks opening): high-res + continuous focus */
+async function tuneCamera(){ if(!html5) return;
+  try{ await html5.applyVideoConstraints({ width:{ideal:1920}, height:{ideal:1080}, advanced:[{focusMode:"continuous"}] }); }
+  catch(e){ try{ await html5.applyVideoConstraints({ advanced:[{focusMode:"continuous"}] }); }catch(e2){} } }
 async function startScanner(){
   if(typeof Html5Qrcode==="undefined"){ scanHint.textContent="Scanner library didn't load. Use the ISBN box or a hardware scanner."; return; }
   scanActions.hidden=true; scanControls.hidden=false; scannerWrap.classList.add("scanning");
   html5=new Html5Qrcode("reader",{ formatsToSupport:scannerFormats(), verbose:false });
-  try{ await html5.start(camConstraints(currentFacing,false),scanConfig(),t=>addByISBN(t),()=>{}); running=true; afterStart(); }
-  catch(err){ try{ const cams=await Html5Qrcode.getCameras(); if(cams&&cams.length){ const back=cams.find(c=>/back|rear|environment/i.test(c.label||""))||cams[cams.length-1]; await html5.start(camConstraints(back.id,true),scanConfig(),t=>addByISBN(t),()=>{}); running=true; afterStart(); } else throw err; }
+  try{ await html5.start({facingMode:currentFacing},scanConfig(),t=>addByISBN(t),()=>{}); running=true; afterStart(); }
+  catch(err){ try{ const cams=await Html5Qrcode.getCameras(); if(cams&&cams.length){ const back=cams.find(c=>/back|rear|environment/i.test(c.label||""))||cams[cams.length-1]; await html5.start(back.id,scanConfig(),t=>addByISBN(t),()=>{}); running=true; afterStart(); } else throw err; }
     catch(e2){ scanHint.textContent="Couldn't start the camera ("+((e2&&e2.message)||e2)+"). Use the ISBN box or a hardware scanner."; scannerWrap.classList.remove("scanning"); scanActions.hidden=false; scanControls.hidden=true; } }
 }
-function afterStart(){ scanHint.textContent="iPhone tip: hold the barcode ~20 cm (a hand-span) away, fill the box, keep steady. Tap the image to refocus; use Torch in low light."; try{ html5.applyVideoConstraints({ advanced:[{focusMode:"continuous"}] }).catch(()=>{}); }catch(e){} try{ const caps=html5.getRunningTrackCapabilities?html5.getRunningTrackCapabilities():null; torchBtn.hidden=!(caps&&caps.torch); }catch(e){ torchBtn.hidden=true; } torchOn=false; torchBtn.setAttribute("aria-pressed","false"); torchBtn.textContent="Torch"; }
+function afterStart(){ scanHint.textContent="iPhone tip: hold the barcode ~20 cm (a hand-span) away, fill the box, keep steady. Tap the image to refocus; use Torch in low light."; tuneCamera(); try{ const caps=html5.getRunningTrackCapabilities?html5.getRunningTrackCapabilities():null; torchBtn.hidden=!(caps&&caps.torch); }catch(e){ torchBtn.hidden=true; } torchOn=false; torchBtn.setAttribute("aria-pressed","false"); torchBtn.textContent="Torch"; }
 async function stopScanner(){ scannerWrap.classList.remove("scanning"); try{ if(html5&&running){ await html5.stop(); await html5.clear(); } }catch(e){} html5=null; running=false; scanActions.hidden=false; scanControls.hidden=true; }
 async function flipCamera(){ currentFacing=currentFacing==="environment"?"user":"environment"; await stopScanner(); await startScanner(); }
 async function toggleTorch(){ try{ torchOn=!torchOn; await html5.applyVideoConstraints({advanced:[{torch:torchOn}]}); torchBtn.setAttribute("aria-pressed",torchOn?"true":"false"); torchBtn.textContent=torchOn?"Torch on":"Torch"; }catch(e){ torchOn=false; toastMsg("Torch isn't available on this camera."); } }
